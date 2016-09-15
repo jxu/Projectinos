@@ -25,6 +25,13 @@ void loop()
     analogWrite(greenpin, green);
     analogWrite(bluepin, blue);
 
+    // Print RGB values (see Serial Plotter for sine waves!) 
+    Serial.print(red);
+    Serial.print('\t');
+    Serial.print(green);
+    Serial.print('\t');
+    Serial.println(blue);
+
     delay(DELAY);
   }
 }
