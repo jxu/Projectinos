@@ -1,2 +1,3 @@
-# Projectinos
-Arduino projects
+Projectinos
+===========
+Personal arduino projects on the UNO Rev3. 
