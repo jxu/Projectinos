@@ -17,9 +17,11 @@ void loop()
 {
   for (int i=0; i<STEPS; i++)
   { 
+    // Adjusted roughly based on luminosity
+    // For my LED, red is much dimmer than the other colors
     float red   = sin((i/(float)STEPS)*2*PI) * 127 + 128;
-    float green = sin((i/(float)STEPS)*2*PI + 2*PI/3) * 127 + 128;
-    float blue  = sin((i/(float)STEPS)*2*PI + 4*PI/3) * 127 + 128;
+    float green = sin((i/(float)STEPS)*2*PI + 2*PI/3) * 30 + 30; 
+    float blue  = sin((i/(float)STEPS)*2*PI + 4*PI/3) * 30 + 30; 
 
     analogWrite(redpin, red);
     analogWrite(greenpin, green);
