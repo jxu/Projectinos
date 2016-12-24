@@ -9,7 +9,7 @@
 // Represents A, B, C, D, E, F, G, DP bars on display
 byte pins[8] = {7, 6, 5, 10, 11, 8, 9, 4};
 
-byte seg_table[16][8] =      // Display encodings (DP unused)
+boolean seg_table[16][8] =      // Display encodings (DP unused)
   {{1, 1, 1, 1, 1, 1, 0, 0}, // 0
    {0, 1, 1, 0, 0, 0, 0, 0}, // 1
    {1, 1, 0, 1, 1, 0, 1, 0}, // 2
