@@ -10,20 +10,23 @@
  * LCD D7 pin to digital pin 2
  * LCD R/W pin to ground
  * 10K resistor: ends to +5V and ground
- * wiper to LCD VO pin (pin 3)
+ * 1K resistor to LCD VO pin (pin 3)
  */
 
 #include <LiquidCrystal.h>
 
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
-char MSG[] = "Merry Christmas!";
-byte MSGLEN = sizeof(MSG);
+char MSG0[] = "   * Merry *   ";
+char MSG1[] = " * Christmas! *";
+byte MSGLEN = sizeof(MSG1);
 
 void setup()
 {
   lcd.begin(16, 2);
-  lcd.print(MSG);
+  lcd.print(MSG0);
+  lcd.setCursor(0, 1);
+  lcd.print(MSG1);
   delay(1000);
 }
 
