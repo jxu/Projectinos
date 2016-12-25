@@ -113,7 +113,7 @@ void fly_in()
   };
 
   // Definitely not a currency sign!
-  byte WREATH[8] = {
+  byte FLOWER[8] = {
     B00000,
     B10001,
     B01110,
@@ -123,7 +123,7 @@ void fly_in()
     B00000,
   };
 
-  byte FLOWER[8] = {
+  byte WREATH[8] = {
     B10001,
     B01110,
     B11011,
@@ -135,8 +135,8 @@ void fly_in()
 
   lcd.createChar(0, BELL);
   lcd.createChar(1, RIBBON);
-  lcd.createChar(2, WREATH);
-  lcd.createChar(3, FLOWER);
+  lcd.createChar(2, FLOWER);
+  lcd.createChar(3, WREATH);
 
   char PATTERN[17] = {1, 0, 1, 2, 1, 0, 1, 3, 1, 0, 1, 2, 1, 0, 1, 3};
   
@@ -169,8 +169,27 @@ void fly_in()
   delay(5000);
 }
 
+void blink(int loops)
+{
+  // Blinking text
+  lcd.clear();
+  for (int i = 0; i < loops; i++)
+  {
+      lcd.setCursor(0, 0);
+      lcd.print("  And a Happy");
+      lcd.setCursor(0, 1);
+      lcd.print("    New Year!");
+      delay(1000);
+
+      lcd.noDisplay();
+      delay(1000);
+      lcd.display();
+  }
+}
+
 void loop() 
 {
   scroll(2);
   fly_in();
+  //blink(5);
 }
