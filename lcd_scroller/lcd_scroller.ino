@@ -26,6 +26,8 @@ void setup()
 
 void scroll(int loops)
 {
+  // Scroll message left and right
+  
   char MSG0[] = "   * Merry *   ";
   char MSG1[] = " * Christmas! *";
   int MSGLEN = sizeof(MSG1);
@@ -68,9 +70,9 @@ void scroll(int loops)
 
 void snow(int steps)
 {
+  // Wintery scene with randomized snow characters on screen
   char SNOW[] = {' ', '*', 0xEB, 0xDF, 0xA1};
   
-  // Wintery scene with randomized snow
   lcd.clear();
   
   for (int snow_count = 0; snow_count < steps; snow_count++)
@@ -86,8 +88,57 @@ void snow(int steps)
 
 void fly_in()
 {
-  char MSG0[] = "-For Mom & Dad ";
+  // Fly in text effect with bottom row decorative design
+  char MSG0[] = " -To Mom & Dad- ";
   int MSGLEN = sizeof(MSG0);
+
+  byte BELL[8] = {
+    B00000,
+    B00100,
+    B01010,
+    B01010,
+    B01010,
+    B11111,
+    B00100,
+  };
+
+  byte RIBBON[8] = {
+    B00000,
+    B00000,
+    B10001,
+    B01110,
+    B10001,
+    B01110,
+    B00000,
+  };
+
+  // Definitely not a currency sign!
+  byte WREATH[8] = {
+    B00000,
+    B10001,
+    B01110,
+    B01010,
+    B01110,
+    B10001,
+    B00000,
+  };
+
+  byte FLOWER[8] = {
+    B10001,
+    B01110,
+    B11011,
+    B10101,
+    B11011,
+    B01110,
+    B10001,
+  };
+
+  lcd.createChar(0, BELL);
+  lcd.createChar(1, RIBBON);
+  lcd.createChar(2, WREATH);
+  lcd.createChar(3, FLOWER);
+
+  char PATTERN[17] = {1, 0, 1, 2, 1, 0, 1, 3, 1, 0, 1, 2, 1, 0, 1, 3};
   
   lcd.clear();
 
@@ -95,7 +146,7 @@ void fly_in()
   {
     if (MSG0[i] != ' ')
     {
-      for (int j = 15; j > i; j--)
+      for (int j = 15; j >= i; j--)
       {
         lcd.setCursor(j, 0);
         lcd.print(MSG0[i]);
@@ -107,11 +158,19 @@ void fly_in()
     }
     delay(200);
   }
-  delay(1000);
+  delay(500);
+
+  for (int i = 0; i < 16; i++)
+  {
+    lcd.setCursor(i, 1);
+    lcd.write(byte(PATTERN[i]));
+    delay(50);
+  }
+  delay(5000);
 }
 
 void loop() 
 {
-  scroll(0);
+  scroll(2);
   fly_in();
 }
