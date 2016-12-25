@@ -19,38 +19,76 @@ LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 char MSG0[] = "   * Merry *   ";
 char MSG1[] = " * Christmas! *";
-byte MSGLEN = sizeof(MSG1);
+int MSGLEN = sizeof(MSG1);
+
+char SNOW[] = {' ', '*', 0xEB, 0xDF};
+
+byte house[8] = {
+  B00000,
+  B00000,
+  B00100,
+  B01010,
+  B11111,
+  B01010,
+  B01110,
+};
 
 void setup()
 {
   lcd.begin(16, 2);
-  lcd.print(MSG0);
-  lcd.setCursor(0, 1);
-  lcd.print(MSG1);
-  delay(1000);
+
+  // Custom charcters
+  lcd.createChar(0, house);
 }
 
 void loop() 
 {
-  // scroll (string length) to the left
-  for (int i = 0; i < MSGLEN; i++) 
-  {
-    lcd.scrollDisplayLeft();
-    delay(150);
-  }
-
-  // scroll (string length + display length) to the right
-  for (int i = 0; i < MSGLEN + 16; i++) 
-  {
-    lcd.scrollDisplayRight();
-    delay(150);
-  }
-
-  // scroll (display length + string length) to the left
-  for (int i = 0; i < 16; i++) {
-    lcd.scrollDisplayLeft();
-    delay(150);
-  }
-
+  // Setup text scrolling
+  lcd.clear();
+  //lcd.setCursor(0, 0);
+  lcd.print(MSG0);
+  lcd.setCursor(0, 1);
+  lcd.print(MSG1);
   delay(1000);
+
+  
+  for (int scroll_count = 0; scroll_count < 2; scroll_count++)
+  {
+    // scroll (string length) to the left
+    for (int i = 0; i < MSGLEN; i++) 
+    {
+      lcd.scrollDisplayLeft();
+      delay(150);
+    }
+  
+    // scroll (string length + display length) to the right
+    for (int i = 0; i < MSGLEN + 16; i++) 
+    {
+      lcd.scrollDisplayRight();
+      delay(150);
+    }
+  
+    // scroll (display length) to the left
+    for (int i = 0; i < 16; i++) {
+      lcd.scrollDisplayLeft();
+      delay(150);
+    }
+  
+    delay(1000);
+  }
+
+  // Wintery scene with randomized snow
+  lcd.clear();
+  
+  for (int snow_count = 0; snow_count < 100; snow_count++)
+  {
+    char to_write = SNOW[random(sizeof(SNOW))];
+
+    lcd.setCursor(random(16), random(2));
+    lcd.print(to_write);
+
+    delay(200);
+  }
+
+
 }
